@@ -17,6 +17,6 @@ DEFAULT_LONGITUDE=38
 DEFAULT_LATITIUDE=37    
 ```
 * run ```docker-compose up -d```
-* go to address http://127.0.0.1:8050 - web_app
-* go to address http://127.0.0.1:8000/admin - database
+* go to address http://127.0.0.1:WEB_PORT - web_app
+* go to address http://127.0.0.1:DATABASE_PORT/admin - database
 
