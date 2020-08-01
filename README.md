@@ -5,7 +5,7 @@
 * go to target_list directory
 * create ```.env``` file with this configs:
 ```python
-DATABASE_SECRET_KEY=etsttesets    
+DATABASE_SECRET_KEY=your_secret_key    
     
 DATABASE_DEBUG=False    
 WEB_DEBUG=False    
