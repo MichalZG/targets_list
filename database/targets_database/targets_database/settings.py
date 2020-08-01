@@ -30,10 +30,12 @@ def get_env_value(env_variable):
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_env_value('SECRET_KEY')
+SECRET_KEY = get_env_value('DATABASE_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', False)
+DEBUG = False
+if os.environ.get('DATABASE_DEBUG', "False") == "True":
+    DEBUG = True
 
 ALLOWED_HOSTS = ['*',]
 

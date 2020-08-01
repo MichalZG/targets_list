@@ -118,13 +118,15 @@ controls = dbc.FormGroup(
         dbc.FormGroup(
             [
                dbc.Label("Longitude [E]: "), 
-               dbc.Input(id="longitude", type="number", value=37.0, min=0, max=359),
+               dbc.Input(id="longitude", type="number", value=int(os.environ.get(
+                   'DEFAULT_LONGITUDE', 15)), min=0, max=359),
             ]
         ),
         dbc.FormGroup(
             [
                 dbc.Label('Latitiude [N]: '),
-                dbc.Input(id="latitude", type="number", value=37.0, min=-90, max=90),
+                dbc.Input(id="latitude", type="number", value=int(os.environ.get(
+                    'DEFAULT_LATITIUDE', 51)), min=-90, max=90),
 
             ]
         ),

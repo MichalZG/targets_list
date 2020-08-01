@@ -6,11 +6,15 @@ services:
       context: ./web_app
       dockerfile: Dockerfile  
     ports:
-      - "8050:8050"
+            - "${WEB_PORT}:8050"
     volumes:
       - ./web_app:/code
-    environment: 
-      - DASH_DEBUG="${DASH_DEBUG}"
+    environment:
+      - DEFAULT_LONGITUDE
+      - DEFAULT_LATITUDE
+      - WEB_DEBUG
+    depends_on:
+      - dbapp
     command: ["python3", "-u", "main.py"]
 
   dbapp:
@@ -18,10 +22,10 @@ services:
       context: ./database
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "${DATABASE_PORT}:8000"
     volumes:
       - ./database/targets_database:/code
     environment:
-      - DJANGO_DEBUG="${DJANGO_DEBUG}"
-      - SECRET_KEY="${SECRET_KEY}"
+      - DATABASE_DEBUG
+      - DATABASE_SECRET_KEY
     command: ["python3.8", "manage.py", "runserver", "0.0.0.0:8000"]
