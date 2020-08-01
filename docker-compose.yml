@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  webapp:
+    build:
+      context: ./web_app
+      dockerfile: Dockerfile  
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./web_app:/code
+    environment: 
+      - DASH_DEBUG="${DASH_DEBUG}"
+    command: ["python3", "-u", "main.py"]
+
+  dbapp:
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./database/targets_database:/code
+    environment:
+      - DJANGO_DEBUG="${DJANGO_DEBUG}"
+      - SECRET_KEY="${SECRET_KEY}"
+    command: ["python3.8", "manage.py", "runserver", "0.0.0.0:8000"]
