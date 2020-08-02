@@ -39,9 +39,15 @@ if os.environ.get('DATABASE_DEBUG', 'False') == 'True':
 
 ALLOWED_HOSTS = ['*',]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATIC_URL = os.path.join(BASE_DIR, 'static/')
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__)) 
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static') 
+STATIC_URL = '/static/'
 
+"""
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = '/static/'
+STATIC_URL = '/static/'
+"""
 # Application definition
 
 INSTALLED_APPS = [
@@ -133,4 +139,3 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'

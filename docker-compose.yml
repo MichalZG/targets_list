@@ -25,7 +25,8 @@ services:
       - "${DATABASE_PORT}:8000"
     volumes:
       - ./database/targets_database:/code
+      - ./database/targets_database/static:/static/
     environment:
       - DATABASE_DEBUG
       - DATABASE_SECRET_KEY
-    command: ["python3.8", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["python3.8", "manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
