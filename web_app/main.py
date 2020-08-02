@@ -27,22 +27,29 @@ COLUMNS_NAMES_MAPPER = {
     'name': 'Name', 
     'ra': 'RA [h]', 
     'dec': 'Dec [deg]',
-    'observations_number': 'Obs num',
+    'group': 'Group',
     'magnitude': 'Mag',
-    'importance': 'Imp',
+    'priority': 'Priority',
+    'observations_number': 'Obs num',
     'days_from_last_observations': 'Last [d]',
     'cadence': 'Cad [d]',
-    'priority': 'Priority'
+    'note': 'Note',
 }
 
+DEFAULT_GRUPS = ['-']
+
 # df = pd.read_csv('./gaia_targets_test.csv')
-df = pd.read_json(requests.get(settings.DB_ADDRESS).content)
-df = df.rename(columns=COLUMNS_NAMES_MAPPER)
+try:
+    df = pd.read_json(requests.get(settings.DB_ADDRESS).content)
+    df = df.rename(columns=COLUMNS_NAMES_MAPPER)
+except ValueError:
+   df = pd.DataFrame() 
+
 
 additional_columns = ['Alt UT', 'Alt UT+3', 'Alt UT+6']
 offsets = [0, 3, 6]
 
-columns = list(df.columns)
+columns = list(COLUMNS_NAMES_MAPPER.values())
 columns.extend(additional_columns)
 
 columns = [{"name": i, "id": i} for i in columns]
@@ -146,12 +153,11 @@ controls = dbc.FormGroup(
         ),
         dbc.FormGroup(
             [
-                dbc.DropdownMenu(
-                    label="Menu",
-                    children=[
-                        dbc.DropdownMenuItem("Item 1"),
-                        dbc.DropdownMenuItem("Item 2"),
-                    ],
+                dbc.Label('Group: '),
+                dcc.Dropdown(
+                    id='groups-dropdown',
+                    options=[],
+                value=''
                 ),
             ],
         ),
@@ -208,6 +214,7 @@ app.layout = dbc.Container(
         html.Div(id='temp', style={'display': 'none'}, children=[]),
         html.Div(id='intermediate-value', style={'display': 'none'}),
         html.Div(id='main-data', style={'display': 'none'}, children=[]),
+        html.Div(id='groups-data', style={'display': 'none'}, children=[]),
     ],
     fluid=True,
 )
@@ -231,17 +238,23 @@ Functions fired ones on page start/refresh
 """
 
 @app.callback(
-    Output('main-data', 'children'),
+    [Output('main-data', 'children'),
+     Output('groups-dropdown', 'options')],
     [Input('temp', 'children')]
 )
 @timeit
 def refresh_data(_):
     try:
-        df = pd.read_json(requests.get(settings.DB_ADDRESS).content)
-        df = df.rename(columns=COLUMNS_NAMES_MAPPER)
+        targets = pd.read_json(requests.get(
+            settings.DB_ADDRESS+'targets/'
+            ).content)
+        groups = json.loads(requests.get(
+            settings.DB_ADDRESS+'targetgroups/'
+            ).content)
+        targets = targets.rename(columns=COLUMNS_NAMES_MAPPER)
     except:
-        return []
-    return df.to_json(orient='split')
+        return [], []
+    return targets.to_json(orient='split'), [{'label': x['name'], 'value': x['name']} for x in groups]
 
 @app.callback(
     Output('date-picker', 'value'),
@@ -299,13 +312,17 @@ def set_graph(data):
 
 @app.callback(
     Output('table', 'data'),
-    [Input('intermediate-value', 'children')]
+    [Input('intermediate-value', 'children'),
+     Input('groups-dropdown', 'value')]
 )
 @timeit
-def set_table_data(data):
+def set_table_data(data, group):
     if not data:
         raise PreventUpdate
     data = pd.read_json(data, orient='split')
+    if group:
+        data = data[data['Group'] == group]
+
     return data.to_dict(orient='records')
 
 

@@ -1,1 +1,1 @@
-DB_ADDRESS = 'http://dbapp:8000/targets/'
+DB_ADDRESS = 'http://dbapp:8000/'
