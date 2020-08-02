@@ -16,7 +16,6 @@ from django.core.exceptions import ImproperlyConfigured
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -34,13 +33,14 @@ SECRET_KEY = get_env_value('DATABASE_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-if os.environ.get('DATABASE_DEBUG', "False") == "True":
+if os.environ.get('DATABASE_DEBUG', 'False') == 'True':
     DEBUG = True
+
 
 ALLOWED_HOSTS = ['*',]
 
-STATIC_ROOT = 'static/'
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = os.path.join(BASE_DIR, 'static/')
 
 # Application definition
 
