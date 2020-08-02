@@ -14,7 +14,7 @@ DATABASE_PORT=8000
 WEB_PORT=8050    
     
 DEFAULT_LONGITUDE=38    
-DEFAULT_LATITIUDE=37    
+DEFAULT_LATITUDE=37    
 ```
 * run ```docker-compose up -d``` (first run takes some time to build the images)
 * go to address http://127.0.0.1:WEB_PORT - web_app
