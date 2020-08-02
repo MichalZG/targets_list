@@ -1,14 +1,19 @@
 from rest_framework import serializers
-from .models import Target
+from .models import Target, TargetGroup
 
 class TargetSerializer(serializers.ModelSerializer):
+
+    group = serializers.StringRelatedField(many=False)
+
     class Meta:
         model = Target
-        fields = ['name', 'ra', 'dec', 'observations_number', 'magnitude', 'importance',
-                  'days_from_last_observations', 'cadence', 'priority']
+        fields = ['name', 'ra', 'dec', 'group', 'magnitude', 'priority', 'observations_number',
+                  'days_from_last_observations', 'note',]
 
-
-
+class TargetGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TargetGroup
+        fields = ['name',]
 
 
 # class Target(serializers.Serializer):

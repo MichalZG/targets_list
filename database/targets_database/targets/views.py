@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-from targets.models import Target
-from targets.serializers import TargetSerializer
+from targets.models import Target, TargetGroup
+from targets.serializers import TargetSerializer, TargetGroupSerializer
 
 @csrf_exempt
 def target_list(request):
@@ -45,3 +45,17 @@ def target_detail(request, pk):
     elif request.method == 'DELETE':
         target.delete()
         return HttpResponse(status=204)
+
+@csrf_exempt
+def targetgroup_list(request):
+    if request.method == 'GET':
+        targetgroups = TargetGroup.objects.all()
+        serializer = TargetGroupSerializer(targetgroups, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = TargetGroupSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
