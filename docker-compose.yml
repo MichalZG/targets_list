@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 services:
   webapp:
@@ -6,7 +6,7 @@ services:
       context: ./web_app
       dockerfile: Dockerfile  
     ports:
-            - "${WEB_PORT}:8050"
+      - "${WEB_PORT}:8050"
     volumes:
       - ./web_app:/code
     environment:
@@ -23,10 +23,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - "${DATABASE_PORT}:8000"
-    volumes:
-      - ./database/targets_database:/code
-      - ./database/targets_database/static:/static/
+    depends_on:
+      - db
     environment:
       - DATABASE_DEBUG
       - DATABASE_SECRET_KEY
     command: ["python3.8", "manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
+
+  db:
+      image: postgres
+      environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres

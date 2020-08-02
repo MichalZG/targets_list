@@ -1,5 +1,7 @@
 FROM python:3.8
-ADD ./targets_database /code
+ENV PYTHONUNBUFFERED 1
+RUN mkdir /code
 WORKDIR /code
+COPY targets_database/ /code/
 RUN pip install -r requirements.txt
 
