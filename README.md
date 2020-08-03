@@ -25,7 +25,10 @@ DEFAULT_LATITUDE=37
     * ```bash install.sh```
 
 # RUN
+```docker-compose up -d```
 * Open in browser:
 * http://127.0.0.1:WEB_PORT - web_app
 * http://127.0.0.1:DATABASE_PORT/admin - database
 
+# STOP
+```docker-compose stop```
