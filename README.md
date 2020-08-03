@@ -31,4 +31,4 @@ DEFAULT_LATITUDE=37
     * http://127.0.0.1:DATABASE_PORT/admin - database
 
 # STOP
-*```docker-compose stop```
+* ```docker-compose stop```
