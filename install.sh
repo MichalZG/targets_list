@@ -1,4 +1,5 @@
 source .env
+docker-compose run -d db 
 docker-compose run dbapp python manage.py migrate
 docker-compose run dbapp python manage.py makemigrations targets
 docker-compose run dbapp python manage.py migrate targets

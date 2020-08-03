@@ -15,12 +15,16 @@ services:
       - WEB_DEBUG
     depends_on:
       - dbapp
+    networks:
+      - targets_list_network
     command: ["python3", "-u", "main.py"]
 
   dbapp:
     build:
       context: ./database
       dockerfile: Dockerfile
+    links:
+      - "db:db"
     ports:
       - "${DATABASE_PORT}:8000"
     depends_on:
@@ -28,6 +32,8 @@ services:
     environment:
       - DATABASE_DEBUG
       - DATABASE_SECRET_KEY
+    networks:
+      - targets_list_network
     command: ["python3.8", "manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
 
   db:
@@ -38,6 +44,11 @@ services:
       - POSTGRES_PASSWORD
     volumes:
       - pgdata:/var/lib/postgresql/data 
+    networks:
+      - targets_list_network
 
 volumes:
   pgdata:
+
+networks:
+  targets_list_network:
