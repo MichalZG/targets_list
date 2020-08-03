@@ -201,6 +201,7 @@ app.layout = dbc.Container(
                     filter_action="native",
                     sort_mode="multi",
                     style_cell={
+                        'fontSize':14,
                         'height': 'auto',
                         'minWidth': '110px', 'width': '110px', 'maxWidth': '110px',
                         'whiteSpace': 'normal'
