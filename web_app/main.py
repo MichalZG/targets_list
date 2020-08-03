@@ -192,8 +192,7 @@ app.layout = dbc.Container(
         ),
         dbc.Row(
             [
-                dbc.Col(
-                    dash_table.DataTable(
+                dash_table.DataTable(
                     id='table',
                     columns=columns,
                     # data=df.to_dict('records'),
@@ -203,12 +202,11 @@ app.layout = dbc.Container(
                     style_cell={
                         'fontSize':14,
                         'height': 'auto',
-                        'minWidth': '110px', 'width': '110px', 'maxWidth': '110px',
+                        'minWidth': '50px', 'maxWidth': '140px', 'width': '70px',
                         'whiteSpace': 'normal'
                         },
                     style_data_conditional=style_data_conditional,
-                    ), width={'size': 8, 'offset': 2}
-                ),
+                    ), 
             ],
             align='center', 
         ),
