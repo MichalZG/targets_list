@@ -133,7 +133,7 @@ controls = dbc.FormGroup(
             [
                 dbc.Label('Latitiude [N]: '),
                 dbc.Input(id="latitude", type="number", value=int(os.environ.get(
-                    'DEFAULT_LATITIUDE', 51)), min=-90, max=90),
+                    'DEFAULT_LATITUDE', 51)), min=-90, max=90),
 
             ]
         ),
