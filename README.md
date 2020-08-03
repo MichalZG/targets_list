@@ -1,9 +1,9 @@
 # targets_list
 
 # INSTALL
-* clone repo
-* go to target_list directory
-* create ```.env``` file with following configs (change values if you want):
+* Clone repo
+* Go to target_list directory
+* Create ```.env``` file with following configs (change values if you want):
 ```python
 DATABASE_SECRET_KEY=your_secret_key    
     
@@ -21,8 +21,8 @@ DEFAULT_LONGITUDE=38
 DEFAULT_LATITUDE=37    
 ```
 *  Build application and database images
-* ```docker-compose build``` 
-* ```bash install.sh```
+    * ```docker-compose build``` 
+    * ```bash install.sh```
 
 # RUN
 * Open in browser:
