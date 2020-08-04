@@ -180,7 +180,7 @@ app.layout = dbc.Container(
         dbc.Row(
             [
                 dbc.Col(controls, width={'size': 2, 'offset': 2}),
-                dbc.Col(dcc.Graph(id='graph'), width={'size': 3}),
+                dbc.Col(dcc.Graph(id='graph'), width={'size': 4}),
                 dbc.Col(table, width={'size': 3, 'offset': 0}),
             ],
             align='center',
@@ -203,11 +203,11 @@ app.layout = dbc.Container(
                     style_cell={
                         'fontSize':14,
                         'height': 'auto',
-                        'minWidth': '50px', 'maxWidth': '140px', 'width': '70px',
+                        'minWidth': '70px', 'maxWidth': '140px', 'width': '70px',
                         'whiteSpace': 'normal'
                         },
                     style_data_conditional=style_data_conditional,
-                    ),  width={'size': 6, 'sm': 4, 'offset': 3}
+                    ),  width={'size': 8,  'offset': 2}
                 ),
             ],
             align='center', 
