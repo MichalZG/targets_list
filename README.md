@@ -1,6 +1,10 @@
-# targets_list
+# Targets list
 
-# INSTALL
+Simple website with database for list objects for astonomical observations.
+Skymap, altitude and phase (if periodic) of objects with basic information about the observation site.
+Live demo: http://104.248.129.33:8888/
+
+## INSTALL
 * Clone repo
 * Go to target_list directory
 * Create ```.env``` file with following configs (change values if you want):
@@ -24,11 +28,11 @@ DEFAULT_LATITUDE=37
     * ```docker-compose build``` 
     * ```bash install.sh```
 
-# RUN
+## RUN
 * ```docker-compose up -d```
 * Open in browser:
     * http://127.0.0.1:WEB_PORT - web_app
     * http://127.0.0.1:DATABASE_PORT/admin - database
 
-# STOP
+## STOP
 * ```docker-compose stop```
