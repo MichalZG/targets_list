@@ -1,6 +1,6 @@
 # Targets list
 
-Simple website with database for list objects for astonomical observations.
+A Simple website with database for list objects for astronomical observations.
 Skymap, altitude and phase (if periodic) of objects with basic information about the observation site.
 Live demo: http://104.248.129.33:8888/
 
