@@ -6,7 +6,7 @@ class Target(models.Model):
     ra = models.DecimalField(max_digits=11, decimal_places=8)
     dec = models.DecimalField(max_digits=11, decimal_places=8)
     p = models.DecimalField(max_digits=14, decimal_places=7, null=True, blank=True)
-    m0 = models.DecimalField(max_digits=14, decimal_places=7, null=True, blank=True)
+    m0 = models.DecimalField(max_digits=14, decimal_places=7, null=True, blank=True, default=1)
     eclipse_duration = models.DecimalField(max_digits=8, decimal_places=4, null=True, blank=True)
     magnitude = models.DecimalField(max_digits=5, decimal_places=3)
     cadence = models.IntegerField(default=1)

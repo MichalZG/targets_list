@@ -29,10 +29,10 @@ COLUMNS_NAMES_MAPPER = {
     'dec': 'Dec [deg]',
     'group': 'Group',
     'magnitude': 'Mag',
-    'eclipse_duration': 'ecl_dur',
-    'p': 'P',
+    # 'eclipse_duration': 'ecl_dur',
+    'p': 'P [d]',
     'phase': 'Phase',
-    'note': 'Note',
+    'phase 0': 'Phase0 UT+',
 }
 
 DEFAULT_GRUPS = ['-']
@@ -40,17 +40,18 @@ DEFAULT_GRUPS = ['-']
 # df = pd.read_csv('./gaia_targets_test.csv')
 try:
     df = pd.read_json(requests.get(settings.DB_ADDRESS).content)
+    # df = df[COLUMNS_NAMES_MAPPER.keys()]
     df = df.rename(columns=COLUMNS_NAMES_MAPPER)
 except ValueError:
    df = pd.DataFrame() 
 
 
 
-additional_columns = ['Alt UT', 'Alt UT+3', 'Alt UT+6']
+time_columns = ['Alt UT', 'Alt UT+3', 'Alt UT+6']
 offsets = [0, 3, 6]
 
 columns = list(COLUMNS_NAMES_MAPPER.values())
-columns.extend(additional_columns)
+columns.extend(time_columns)
 
 columns = [{"name": i, "id": i} for i in columns]
 
@@ -286,8 +287,7 @@ def clean_data(main_data, longitude, latitude, date, ut):
     if not main_data:
         raise PreventUpdate
     full_df = pd.read_json(main_data, orient='split')
-    # full_df = df.copy()
-    for i, (column_name, offset) in enumerate(zip(additional_columns, offsets)):
+    for i, (column_name, offset) in enumerate(zip(time_columns, offsets)):
 
         date_off = Time(date) + offset*u.hour
         altaz_frame = observer.altaz(date_off)
@@ -315,16 +315,19 @@ def set_graph(data):
 @app.callback(
     Output('table', 'data'),
     [Input('intermediate-value', 'children'),
-     Input('groups-dropdown', 'value')]
+     Input('groups-dropdown', 'value'),
+     Input('date-picker', 'value'),
+     Input('ut', 'value')]
 )
 @timeit
-def set_table_data(data, group):
+def set_table_data(data, group, date, ut):
     if not data:
         raise PreventUpdate
     data = pd.read_json(data, orient='split')
     if group:
         data = data[data['Group'] == group]
 
+    data = calculate_phase(data, date, ut)
     return data.to_dict(orient='records')
 
 
@@ -371,6 +374,24 @@ def get_altaz(ra, dec, altaz_frame):
 
     return np.round(target_altaz.alt.value, 1), np.round(target_altaz.az.value, 1)
     
+
+@timeit
+def calculate_phase(data, date, ut):
+    date = dt.strptime(re.split('T| ', date)[0], '%Y-%m-%d')
+    time_set = Time(date.replace(hour=int(ut)))
+    mask = data['P [d]'].notnull()
+    data.loc[mask, 'ut_epoch'] = (((time_set.jd1 + time_set.jd2) - data.loc[mask, 'm0']) / data.loc[mask, 'P [d]'])
+    data['Phase'] = round(data.loc[mask, 'ut_epoch'] % 1, 2)
+
+    mask = data['ut_epoch'].notnull()
+    next_phase0_jd = data.loc[mask, 'm0'] + (data.loc[mask, 'ut_epoch'].astype(int) + 1) * data.loc[mask, 'P [d]']
+    next_phase0_jd_diff = (next_phase0_jd - (time_set.jd1 + time_set.jd2))
+
+    data.loc[mask, 'Phase0 UT+'] = next_phase0_jd_diff.map(
+        lambda x: f"{int(x * 24)}:{int((x * 24 % 1) * 60):02}"
+        )
+    return data
+
 
 if __name__ == '__main__':
 
