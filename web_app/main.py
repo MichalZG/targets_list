@@ -29,10 +29,9 @@ COLUMNS_NAMES_MAPPER = {
     'dec': 'Dec [deg]',
     'group': 'Group',
     'magnitude': 'Mag',
-    'priority': 'Priority',
-    'observations_number': 'Obs num',
-    'days_from_last_observations': 'Last [d]',
-    'cadence': 'Cad [d]',
+    'eclipse_duration': 'ecl_dur',
+    'p': 'P',
+    'phase': 'Phase',
     'note': 'Note',
 }
 
@@ -44,6 +43,7 @@ try:
     df = df.rename(columns=COLUMNS_NAMES_MAPPER)
 except ValueError:
    df = pd.DataFrame() 
+
 
 
 additional_columns = ['Alt UT', 'Alt UT+3', 'Alt UT+6']
@@ -292,7 +292,8 @@ def clean_data(main_data, longitude, latitude, date, ut):
         date_off = Time(date) + offset*u.hour
         altaz_frame = observer.altaz(date_off)
 
-        full_df[column_name], full_df['Az'+str(i)] = get_altaz(full_df['RA [h]'], full_df['Dec [deg]'], altaz_frame)
+        full_df[column_name], full_df['Az'+str(i)] = get_altaz(full_df['RA [h]'],
+                                                               full_df['Dec [deg]'], altaz_frame)
 
     return full_df.to_json(date_format='iso', orient='split')
 

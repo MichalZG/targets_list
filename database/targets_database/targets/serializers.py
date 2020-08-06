@@ -7,8 +7,8 @@ class TargetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Target
-        fields = ['name', 'ra', 'dec', 'group', 'magnitude', 'priority', 'observations_number',
-                  'days_from_last_observations', 'note',]
+        fields = ['name', 'ra', 'dec', 'group', 'magnitude', 'priority', 'p', 'm0',
+                  'eclipse_duration', 'cadence', 'note',]
 
 class TargetGroupSerializer(serializers.ModelSerializer):
     class Meta:
