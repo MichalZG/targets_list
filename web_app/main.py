@@ -32,7 +32,7 @@ COLUMNS_NAMES_MAPPER = {
     # 'eclipse_duration': 'ecl_dur',
     'p': 'P [d]',
     'phase': 'Phase',
-    'phase 0': 'Phase0 UT+',
+    'phase 0': 'P0 UT+ [h]',
 }
 
 DEFAULT_GRUPS = ['-']
@@ -390,7 +390,7 @@ def calculate_phase(data, date, ut):
     next_phase0_jd = data.loc[mask, 'm0'] + (data.loc[mask, 'ut_epoch'].astype(int) + 1) * data.loc[mask, 'P [d]']
     next_phase0_jd_diff = (next_phase0_jd - (time_set.jd1 + time_set.jd2))
 
-    data.loc[mask, 'Phase0 UT+'] = next_phase0_jd_diff.map(
+    data.loc[mask, 'P0 UT+ [h]'] = next_phase0_jd_diff.map(
         lambda x: f"{int(x * 24)}:{int((x * 24 % 1) * 60):02}"
         )
     return data
