@@ -23,6 +23,8 @@ services:
     build:
       context: ./database
       dockerfile: Dockerfile
+    volumes:
+      - ./database/targets_database:/code
     links:
       - "db:db"
     ports:
