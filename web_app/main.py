@@ -63,6 +63,9 @@ for c in columns:
     elif c['name'] in ['RA [h]', 'Dec [deg]']:
         c['format'] = {'specifier': '.5f'} 
         c['type'] = 'numeric'
+    elif c['name'] in ['P [d]']:
+        c['format'] = {'specifier': '.5f'} 
+        c['type'] = 'numeric'
 
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
