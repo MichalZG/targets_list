@@ -22,7 +22,8 @@ import os
 import requests
 import settings
 
-
+GITHUB_LOGO = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
+GITHUB_LOGO = 'https://seeklogo.com/images/G/github-logo-7880D80B8D-seeklogo.com.png'
 COLUMNS_NAMES_MAPPER = {
     'name': 'Name', 
     'ra': 'RA [h]', 
@@ -123,6 +124,20 @@ style_data_conditional = [
 ]
 
 
+navbar = dbc.NavbarSimple(
+    children=[
+        html.A(
+            html.Img(src=GITHUB_LOGO, height="30px"),
+            href="https://github.com/MichalZG/targets_list",
+        ),
+    ],
+    brand="Targets list",
+    brand_href="#",
+    color="dark",
+    dark=True,
+)
+
+
 
 controls = dbc.FormGroup(
     [
@@ -183,6 +198,11 @@ app.layout = dbc.Container(
     [
         dbc.Row(
             [
+                dbc.Col(navbar)
+            ]
+        ),
+        dbc.Row(
+            [
                 dbc.Col(controls, width={'size': 2, 'offset': 2}),
                 dbc.Col(dcc.Graph(id='graph'), width={'size': 4}),
                 dbc.Col(table, width={'size': 3, 'offset': 0}),
@@ -202,6 +222,10 @@ app.layout = dbc.Container(
                     columns=columns,
                     # data=df.to_dict('records'),
                     sort_action="native",
+                    selected_rows=[],
+                    page_action="native",
+                    page_current= 0,
+                    page_size= 10,
                     filter_action="native",
                     sort_mode="multi",
                     style_cell={
