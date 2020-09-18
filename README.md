@@ -1,7 +1,19 @@
 # Targets list
 
-A Simple website with database for list objects for astronomical observations.
-Skymap, altitude and phase (if periodic) of objects with basic information about the observation site.
+Targets list is composision of website and objects database, 
+provides a quick look at which astronomical objects from your database are visible and where they are on the sky.
+Moreover, you can find informations about sunset, sunrise, Moon phase/alt/az or LST for specific location and time.
+
+The procedure is very simple, just add some objects to database with django admin interface or with API.
+To add objects to database you have to create at least one "target groups" to which you can assign objects.
+To create new object you have to fill this form:
+
+Then, open website and check your objects visibility. 
+
+
+
+You can groups your objects or filter them on table.  
+
 Live demo: http://104.248.129.33:8888/
 
 ## INSTALL
@@ -9,20 +21,22 @@ Live demo: http://104.248.129.33:8888/
 * Go to target_list directory
 * Create ```.env``` file with following configs (change values if you want):
 ```python
-DATABASE_SECRET_KEY=your_secret_key    
-    
-DATABASE_DEBUG=False    
-WEB_DEBUG=False    
-   
+DATABASE_SECRET_KEY=fasdfksdajlu34w423423
+DATABASE_ADMIN_NAME=adminname
+DATABASE_ADMIN_PASS=adminpass
+
 POSTGRES_DB=postgres
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
-   
-DATABASE_PORT=8000
-WEB_PORT=8050
-   
-DEFAULT_LONGITUDE=38    
-DEFAULT_LATITUDE=37    
+
+DATABASE_DEBUG=False
+WEB_DEBUG=False
+
+DATABASE_PORT=8889
+WEB_PORT=8888
+
+DEFAULT_LONGITUDE=37
+DEFAULT_LATITUDE=38
 ```
 *  Build application and database images
     * ```docker-compose build``` 
