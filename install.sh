@@ -1,4 +1,8 @@
 source .env
+docker-compose down --volumes
+docker volume rm -f pgdata
+docker volume create pgdata
+docker-compose build
 docker-compose run -d db 
 docker-compose run dbapp python manage.py migrate
 docker-compose run dbapp python manage.py makemigrations targets
