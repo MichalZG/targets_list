@@ -133,7 +133,7 @@ navbar = dbc.NavbarSimple(
             href="https://github.com/MichalZG/targets_list",
         ),
     ],
-    brand="Targets list",
+    brand="Target list",
     brand_href="#",
     color="dark",
     dark=True,
