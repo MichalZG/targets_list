@@ -4,14 +4,9 @@ Targets list is composision of website and objects database,
 provides a quick look at which astronomical objects from your database are visible and where they are on the sky.
 Moreover, you can find informations about sunset, sunrise, Moon phase/alt/az or LST for specific location and time.
 
-The procedure is very simple, just add some objects to database with django admin interface or with API.
-To add objects to database you have to create at least one "target groups" to which you can assign objects.
-To create new object you have to fill this form:
-
+The procedure is very simple, just add some "target group" and assign new objects to it. 
+You can do it with django admin interface or API.
 Then, open website and check your objects visibility. 
-
-
-
 You can groups your objects or filter them on table.  
 
 Live demo: http://104.248.129.33:8888/
