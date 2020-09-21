@@ -10,6 +10,10 @@ class TargetSerializer(serializers.ModelSerializer):
         fields = ['name', 'ra', 'dec', 'group', 'magnitude', 'priority', 'p', 'm0',
                   'eclipse_duration', 'cadence', 'note',]
 
+    def create(self, validated_data):
+        print('fsdfsd')
+        return Target.objects.create(**validated_data)
+
 class TargetGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = TargetGroup
