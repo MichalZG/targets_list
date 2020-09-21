@@ -8,7 +8,7 @@ After installation you have to add some "target group" and assign new objects to
 You can do it with django admin interface.
 Then, open website and check your objects visibility. 
 
-Objects table allows for advanced filtering and sorting, informations about syntax you can find [here](https://dash.plotly.com/datatable/filtering).
+Objects table allows advanced filtering and sorting, informations about syntax you can find [here](https://dash.plotly.com/datatable/filtering).
 
 Live demo: http://104.248.129.33:8888/
 
