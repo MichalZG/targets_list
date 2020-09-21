@@ -30,10 +30,12 @@ COLUMNS_NAMES_MAPPER = {
     'dec': 'Dec [deg]',
     'group': 'Group',
     'magnitude': 'Mag',
+    'cadence': 'Cadence [d]',
+    'priority': 'Priority'
     # 'eclipse_duration': 'ecl_dur',
-    'p': 'P [d]',
-    'phase': 'Phase',
-    'phase 0': 'P0 UT+ [h]',
+    # 'p': 'P [d]',
+    # 'phase': 'Phase',
+    # 'phase 0': 'P0 UT+ [h]',
 }
 
 DEFAULT_GRUPS = ['-']
@@ -354,7 +356,7 @@ def set_table_data(data, group, date, ut):
     if group:
         data = data[data['Group'] == group]
 
-    data = calculate_phase(data, date, ut)
+    # data = calculate_phase(data, date, ut)
     return data.to_dict(orient='records')
 
 
