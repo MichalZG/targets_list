@@ -34,7 +34,6 @@ DEFAULT_LONGITUDE=37
 DEFAULT_LATITUDE=38
 ```
 *  Build application and database images
-    * ```docker-compose build``` 
     * ```bash install.sh```
 
 ## RUN
