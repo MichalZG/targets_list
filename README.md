@@ -1,7 +1,7 @@
 # Targets list
 
 Targets list is composision of website and objects database, 
-provides a quick look at which astronomical objects from your database are visible and where they are on the sky.
+provides a quick look at which astronomical objects are visible and where they are on the sky.
 Moreover, you can find informations about sunset, sunrise, Moon phase/alt/az or LST for specific location and time.
 
 The procedure is very simple, just add some "target group" and assign new objects to it. 
