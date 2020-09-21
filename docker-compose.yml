@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  webapp:
+  webapp_gaia:
     build:
       context: ./web_app
       dockerfile: Dockerfile  
@@ -14,23 +14,23 @@ services:
       - DEFAULT_LATITUDE
       - WEB_DEBUG
     depends_on:
-      - dbapp
+      - dbapp_gaia
     networks:
-      - targets_list_network
+      - targets_list_network_gaia
     command: ["python3", "-u", "main.py"]
 
-  dbapp:
+  dbapp_gaia:
     build:
       context: ./database
       dockerfile: Dockerfile
     volumes:
       - ./database/targets_database:/code
     links:
-      - "db:db"
+      - "db_gaia:db_gaia"
     ports:
       - "${DATABASE_PORT}:8000"
     depends_on:
-      - db
+      - db_gaia
     environment:
       - DATABASE_DEBUG
       - DATABASE_SECRET_KEY
@@ -38,10 +38,10 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
     networks:
-      - targets_list_network
+      - targets_list_network_gaia
     command: ["python3.8", "manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
 
-  db:
+  db_gaia:
     image: postgres
     environment:
       - POSTGRES_DB
@@ -50,10 +50,10 @@ services:
     volumes:
       - pgdata_gaia:/var/lib/postgresql/data 
     networks:
-      - targets_list_network
+      - targets_list_network_gaia
 
 volumes:
   pgdata_gaia:
 
 networks:
-  targets_list_network:
+  targets_list_network_gaia:
