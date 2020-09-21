@@ -1,6 +1,6 @@
-# Targets list
+# Target list
 
-Targets list is composision of website and objects database, 
+Target list is composision of website and objects database, 
 provides a quick look at which astronomical objects are visible and where they are on the sky.
 Moreover, you can find informations about sunset, sunrise, Moon phase/alt/az or LST for specific location and time.
 
