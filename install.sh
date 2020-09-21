@@ -1,7 +1,7 @@
 source .env
 docker-compose down --volumes
-docker volume rm -f pgdata
-docker volume create pgdata
+docker volume rm -f pgdata_gaia
+docker volume create pgdata_gaia
 docker-compose build
 docker-compose run -d db 
 docker-compose run dbapp python manage.py migrate

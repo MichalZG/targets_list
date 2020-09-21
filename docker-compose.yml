@@ -53,7 +53,7 @@ services:
       - targets_list_network
 
 volumes:
-  pgdata:
+  pgdata_gaia:
 
 networks:
   targets_list_network:
