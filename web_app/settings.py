@@ -1,1 +1,1 @@
-DB_ADDRESS = 'http://dbapp:8000/'
+DB_ADDRESS = 'http://dbapp_gaia:8000/'
