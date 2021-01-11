@@ -43,7 +43,6 @@ DEFAULT_LATITUDE=38
 Each objects in the database have to be assigned to the objects group.
 The first step to add a new object in empty database is creation of objects group.
 For this, open a admin interface and choose *Target groups* -> *Add*.
-
 Then you can add new objects with *Target* -> *Add* and assign them to the choosed group. 
 Refresh web_app website and check the objects visibility.
 
