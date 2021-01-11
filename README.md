@@ -1,9 +1,8 @@
 # Target list
 
 Target list is composision of website and objects database, 
-provides a quick look at which astronomical objects are visible and where they are on the sky.
-Moreover, you can find informations about sunset, sunrise, Moon phase/alt/az or LST for specific location and time.
-
+which provides a quick look at which astronomical objects are visible and where they are on the sky for specific location and time.
+Moreover, you can find there basic informations about sunset, sunrise, Moon phase/alt/az and LST.
 Objects table allows advanced filtering and sorting, informations about syntax you can find [here](https://dash.plotly.com/datatable/filtering).
 
 Live demo: http://104.248.129.33:8888/
@@ -37,13 +36,14 @@ DEFAULT_LATITUDE=38
 * ```docker-compose up -d```
 * Open in browser:
     * http://127.0.0.1:WEB_PORT - web_app
-    * http://127.0.0.1:DATABASE_PORT/admin - database
+    * http://127.0.0.1:DATABASE_PORT/admin - database admin interface 
 
 ## ADD OBJECTS
-
-You have to add some "target group" and assign new objects to it. 
-You can do it with django admin interface.
-Then, open website and check your objects visibility. 
+Each objects in the database have to be assigned to the objects group.
+The first step to add a new object in empty database is creation of objects group.
+For this, open a admin interface and choose *Target groups* -> *Add*.
+Then you can add new objects with *Target* -> *Add* and assign them to the choosed group. 
+Refresh web_app website and check the objects visibility.
 
 ## STOP
 * ```docker-compose stop```
