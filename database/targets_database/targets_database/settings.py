@@ -29,11 +29,11 @@ def get_env_value(env_variable):
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_env_value('DATABASE_SECRET_KEY')
+SECRET_KEY = get_env_value('TARGETS_DB_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-if os.environ.get('DATABASE_DEBUG', 'False') == 'True':
+if os.environ.get('TARGETS_DB_DEBUG', 'False') == 'True':
     DEBUG = True
 
 
@@ -52,6 +52,7 @@ STATIC_URL = '/static/'
 
 INSTALLED_APPS = [
     'rest_framework',     
+    'import_export',
     'targets.apps.TargetsConfig', 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -98,11 +99,11 @@ WSGI_APPLICATION = 'targets_database.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432,
+        'NAME': get_env_value('TARGETS_DB_NAME'),
+        'USER': get_env_value('TARGETS_DB_USER'),
+        'PASSWORD': get_env_value('TARGETS_DB_PASSWORD'),
+        'HOST': get_env_value('TARGETS_DB_HOST'),
+        'PORT': get_env_value('TARGETS_DB_PORT'),
     }
 }
 

@@ -1,7 +1,10 @@
 from django.db import models
+from django.apps import apps
+
 
 class Target(models.Model):
-    group = models.ForeignKey('TargetGroup', on_delete=models.SET_DEFAULT, default='common')
+    group = models.ForeignKey('TargetGroup', on_delete=models.CASCADE,
+        blank=True, null=True)
     name = models.CharField(max_length=54, unique=True)
     ra = models.DecimalField(max_digits=11, decimal_places=8)
     dec = models.DecimalField(max_digits=11, decimal_places=8)
@@ -18,7 +21,15 @@ class Target(models.Model):
 
     def __str__(self):
         return self.name
-
+    
+    def save(self, *args, **kwargs):
+        if not self.group:
+            group, _ = apps.get_model(
+                'targets.targetgroup').objects.get_or_create(name='main')
+            self.group = group
+        
+        return super().save(*args, **kwargs)
+        
 
 class TargetGroup(models.Model):
     name = models.CharField(max_length=14, unique=True)

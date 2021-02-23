@@ -147,14 +147,14 @@ controls = dbc.FormGroup(
             [
                dbc.Label("Longitude [E]: "), 
                dbc.Input(id="longitude", type="number", value=int(os.environ.get(
-                   'DEFAULT_LONGITUDE', 15)), min=0, max=359),
+                   'TARGETS_DEFAULT_LONGITUDE', 15)), min=0, max=359),
             ]
         ),
         dbc.FormGroup(
             [
                 dbc.Label('Latitiude [N]: '),
                 dbc.Input(id="latitude", type="number", value=int(os.environ.get(
-                    'DEFAULT_LATITUDE', 51)), min=-90, max=90),
+                    'TARGETS_DEFAULT_LATITUDE', 51)), min=-90, max=90),
 
             ]
         ),
@@ -429,7 +429,7 @@ if __name__ == '__main__':
     logfile = logging.getLogger('file')
 
     debug = False
-    if os.environ.get('WEB_DEBUG', 'False') == 'True':
+    if os.environ.get('TARGETS_WEB_DEBUG', 'False') == 'True':
         debug = True
 
     app.run_server(host="0.0.0.0", port=8050, debug=debug)

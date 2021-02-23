@@ -6,13 +6,13 @@ services:
       context: ./web_app
       dockerfile: Dockerfile  
     ports:
-      - "${WEB_PORT}:8050"
+      - "${TARGETS_WEB_PORT}:8050"
     volumes:
       - ./web_app:/code
     environment:
-      - DEFAULT_LONGITUDE
-      - DEFAULT_LATITUDE
-      - WEB_DEBUG
+      - TARGETS_DEFAULT_LONGITUDE
+      - TARGETS_DEFAULT_LATITUDE
+      - TARGETS_WEB_DEBUG
     depends_on:
       - dbapp
     networks:
@@ -25,35 +25,20 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./database/targets_database:/code
-    links:
-      - "db:db"
     ports:
-      - "${DATABASE_PORT}:8000"
-    depends_on:
-      - db
+      - "${TARGETS_DATABASE_PORT}:8000"
     environment:
-      - DATABASE_DEBUG
-      - DATABASE_SECRET_KEY
-      - POSTGRES_DB
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
+      - TARGETS_DB_DEBUG
+      - TARGETS_DB_SECRET_KEY
+      - TARGETS_DB_NAME
+      - TARGETS_DB_HOST
+      - TARGETS_DB_PORT
+      - TARGETS_DB_USER
+      - TARGETS_DB_PASSWORD
     networks:
       - targets_list_network
-    command: ["python3.8", "manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
+    command: ["python3.8", "manage.py", "runserver", "0.0.0.0:8000"]
 
-  db:
-    image: postgres
-    environment:
-      - POSTGRES_DB
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-    volumes:
-      - pgdata:/var/lib/postgresql/data 
-    networks:
-      - targets_list_network
-
-volumes:
-  pgdata:
 
 networks:
   targets_list_network:
