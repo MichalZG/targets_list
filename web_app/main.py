@@ -30,12 +30,12 @@ COLUMNS_NAMES_MAPPER = {
     'dec': 'Dec [deg]',
     'group': 'Group',
     'magnitude': 'Mag',
-    'cadence': 'Cadence [d]',
+    # 'cadence': 'Cadence [d]',
     'priority': 'Priority',
     # 'eclipse_duration': 'ecl_dur',
-    # 'p': 'P [d]',
-    # 'phase': 'Phase',
-    # 'phase 0': 'P0 UT+ [h]',
+    'p': 'P [d]',
+    'phase': 'Phase',
+    'phase 0': 'P0 [h+]',
 }
 
 DEFAULT_GRUPS = ['-']
@@ -356,7 +356,7 @@ def set_table_data(data, group, date, ut):
     if group:
         data = data[data['Group'] == group]
 
-    # data = calculate_phase(data, date, ut)
+    data = calculate_phase(data, date, ut)
     return data.to_dict(orient='records')
 
 
@@ -416,7 +416,7 @@ def calculate_phase(data, date, ut):
     next_phase0_jd = data.loc[mask, 'm0'] + (data.loc[mask, 'ut_epoch'].astype(int) + 1) * data.loc[mask, 'P [d]']
     next_phase0_jd_diff = (next_phase0_jd - (time_set.jd1 + time_set.jd2))
 
-    data.loc[mask, 'P0 UT+ [h]'] = next_phase0_jd_diff.map(
+    data.loc[mask, 'P0 [h+]'] = next_phase0_jd_diff.map(
         lambda x: f"{int(x * 24)}:{int((x * 24 % 1) * 60):02}"
         )
     return data
