@@ -5,7 +5,7 @@ chardet==3.0.4
 decorator==4.4.2
 Django==3.0.8
 psycopg2-binary>=2.8
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 httpie==2.2.0
 idna==2.10
 ipython==7.16.1
